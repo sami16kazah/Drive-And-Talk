@@ -1,0 +1,123 @@
+{
+  "Navigation": {
+    "home": "Home",
+    "courses": "Aanbod",
+    "successStories": "Succesverhalen",
+    "about": "Over ons",
+    "contact": "Contact",
+    "admin": "Beheerder",
+    "whatsapp": "WhatsApp Contact",
+    "signIn": "Inloggen met Google",
+    "signOut": "Uitloggen",
+    "welcome": "Welkom"
+  },
+  "SchoolInfo": {
+    "name": "Drive&Talk",
+    "tagline": "Taal- en Beroepsopleidingen",
+    "email": "info@drivetalk.nl",
+    "phone": "+31628468247",
+    "hours": "Maandag t/m Zondag : 09:00 - 22:00",
+    "address": "Nederland"
+  },
+  "Hero": {
+    "badge": "Certificaten & Erkende Docenten",
+    "titlePrefix": "Ontwikkel je toekomst met ",
+    "titleHighlight": "Drive&Talk",
+    "subtitle": "Kwalitatieve cursussen Nederlands, Engels, Rijbewijs Theorie en Chemie. Geïntegreerd taal- en praktijkonderwijs afgestemd op uw succes in Nederland.",
+    "ctaExplore": "Bekijk ons Aanbod",
+    "ctaContact": "Direct Inschrijven",
+    "statStudents": "1500+ Geslaagde Cursisten",
+    "statPassRate": "98% Slagingspercentage",
+    "statSupport": "7/7 Persoonlijke Begeleiding"
+  },
+  "Home": {
+    "coursesTitle": "Populaire Cursussen & Opleidingen",
+    "coursesSubtitle": "Kies het traject dat bij uw doelen past. Met ervaren docenten en flexibele lestijden.",
+    "viewAll": "Alle cursussen bekijken",
+    "quickInquiryTitle": "Gratis Adviesgesprek Aanvragen",
+    "quickInquirySubtitle": "Laat uw gegevens achter. Wij nemen binnen 24 uur vrijblijvend contact met u op.",
+    "testimonialsTitle": "Ervaringen van Onze Cursisten",
+    "testimonialsSubtitle": "Ontdek hoe Drive&Talk studenten helpt hun doelen te bereiken."
+  },
+  "Courses": {
+    "title": "Ons Cursusaanbod",
+    "subtitle": "Geïntegreerde lessen voor studie, werk en rijbewijs.",
+    "allCategories": "Alle Categorieën",
+    "categoryEnglish": "Engels",
+    "categoryDutch": "Nederlands",
+    "categoryDriving": "Rijbewijs Theorie",
+    "categoryChemistry": "Chemie",
+    "categoryOther": "Overig",
+    "price": "Prijs",
+    "duration": "Duur",
+    "details": "Details bekijken",
+    "enrollNow": "Inschrijven voor deze cursus",
+    "noCourses": "Geen cursussen gevonden in deze categorie."
+  },
+  "CourseDetail": {
+    "back": "Terug naar aanbod",
+    "syllabus": "Lesprogramma & Inhoud",
+    "highlights": "Wat u leert tijdens deze cursus",
+    "reviewsTitle": "Beoordelingen & Ervaringen",
+    "leaveReview": "Schrijf een beoordeling",
+    "signInToReview": "Log in met Google om een review achter te laten.",
+    "submitReview": "Review Plaatsen",
+    "rating": "Waardering",
+    "commentPlaceholder": "Deel uw ervaringen met deze cursus...",
+    "noReviews": "Nog geen beoordelingen voor deze cursus."
+  },
+  "EnrollmentModal": {
+    "title": "Inschrijven voor cursus",
+    "firstName": "Voornaam",
+    "lastName": "Achternaam",
+    "email": "E-mailadres",
+    "phone": "Telefoonnummer (WhatsApp)",
+    "notes": "Opmerkingen of vragen (optioneel)",
+    "submit": "Aanvraag Verzenden",
+    "sending": "Verzenden...",
+    "success": "Bedankt! Uw inschrijving is succesvol ontvangen. Wij nemen snel contact met u op.",
+    "error": "Er is een fout opgetreden. Probeer het opnieuw."
+  },
+  "About": {
+    "title": "Over Drive&Talk Academy",
+    "subtitle": "Uw brug naar taalvaardigheid, theoriecertificaten en vakgebonden kennis in Nederland.",
+    "missionTitle": "Onze Missie",
+    "missionText": "Drive&Talk is een toonaangevende academie die taal- en beroepsonderwijs combineert. Wij bieden intensieve onderdompeling in de Nederlandse taal, versterking van Engelse taalvaardigheid, voorbereiding op het CBR-theorie-examen en deskundige chemielessen voor studenten en professionals in Nederland.",
+    "contactCardsTitle": "Direct Contact & Openingstijden",
+    "emailLabel": "Stuur ons een e-mail",
+    "phoneLabel": "WhatsApp & Telefoon",
+    "hoursLabel": "Openingstijden",
+    "whatsappText": "Start een WhatsApp gesprek"
+  },
+  "SuccessStories": {
+    "title": "Succesverhalen",
+    "subtitle": "Inspirerende verhalen van cursisten die hun doelen hebben bereikt bij Drive&Talk.",
+    "courseCompleted": "Cursus afgerond",
+    "noStories": "Momenteel geen succesverhalen beschikbaar."
+  },
+  "Contact": {
+    "title": "Neem Contact Met Ons Op",
+    "subtitle": "Heeft u vragen over onze cursussen of wilt u advies op maat? Wij staan voor u klaar.",
+    "formTitle": "Stuur een Bericht",
+    "submit": "Bericht Verzenden",
+    "sending": "Verzenden...",
+    "success": "Bedankt voor uw bericht! Wij nemen zo snel mogelijk contact met u op.",
+    "error": "Fout bij verzenden van uw bericht."
+  },
+  "Admin": {
+    "title": "Drive&Talk Beheerdersdashboard",
+    "metricsLeads": "Totale Aanvragen",
+    "metricsPending": "In behandeling",
+    "metricsCourses": "Actieve Cursussen",
+    "metricsStories": "Succesverhalen",
+    "tabInbox": "Inschrijvingen & Berichtensubs",
+    "tabCourses": "Cursusbeheer",
+    "tabStories": "Succesverhalen Beheer",
+    "tabSettings": "Instellingen",
+    "replyModalTitle": "Beantwoorden via E-mail (Mailjet)",
+    "sendReply": "E-mail Verzenden",
+    "statusPending": "In behandeling",
+    "statusReplied": "Beantwoord",
+    "statusArchived": "Gearchiveerd"
+  }
+}

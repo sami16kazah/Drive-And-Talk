@@ -1,0 +1,123 @@
+{
+  "Navigation": {
+    "home": "Home",
+    "courses": "Courses",
+    "successStories": "Success Stories",
+    "about": "About Us",
+    "contact": "Contact",
+    "admin": "Admin",
+    "whatsapp": "WhatsApp Contact",
+    "signIn": "Sign In with Google",
+    "signOut": "Sign Out",
+    "welcome": "Welcome"
+  },
+  "SchoolInfo": {
+    "name": "Drive&Talk",
+    "tagline": "Language & Vocational Academy",
+    "email": "info@drivetalk.nl",
+    "phone": "+31628468247",
+    "hours": "Monday to Sunday: 09:00 - 22:00",
+    "address": "Netherlands"
+  },
+  "Hero": {
+    "badge": "Certified & Experienced Instructors",
+    "titlePrefix": "Empower your future with ",
+    "titleHighlight": "Drive&Talk",
+    "subtitle": "Premium courses in Dutch, English, Driving Theory, and Chemistry. Integrated language and vocational education designed for your success in the Netherlands.",
+    "ctaExplore": "Explore Our Courses",
+    "ctaContact": "Enroll Now",
+    "statStudents": "1500+ Successful Students",
+    "statPassRate": "98% Exam Pass Rate",
+    "statSupport": "7/7 Personal Guidance"
+  },
+  "Home": {
+    "coursesTitle": "Featured Programs & Courses",
+    "coursesSubtitle": "Choose the learning path aligned with your ambitions. Taught by certified instructors with flexible schedules.",
+    "viewAll": "View all courses",
+    "quickInquiryTitle": "Request a Free Consultation",
+    "quickInquirySubtitle": "Leave your details below. Our team will contact you within 24 hours.",
+    "testimonialsTitle": "What Our Students Say",
+    "testimonialsSubtitle": "Discover how Drive&Talk empowers students to accomplish their personal and professional goals."
+  },
+  "Courses": {
+    "title": "Course Directory",
+    "subtitle": "Integrated programs for study, career advancement, and driving licensing.",
+    "allCategories": "All Categories",
+    "categoryEnglish": "English",
+    "categoryDutch": "Dutch",
+    "categoryDriving": "Driving Theory",
+    "categoryChemistry": "Chemistry",
+    "categoryOther": "Other",
+    "price": "Price",
+    "duration": "Duration",
+    "details": "View Details",
+    "enrollNow": "Enroll in this Course",
+    "noCourses": "No courses found matching this category."
+  },
+  "CourseDetail": {
+    "back": "Back to courses",
+    "syllabus": "Syllabus & Course Outline",
+    "highlights": "What you will master",
+    "reviewsTitle": "Student Reviews & Ratings",
+    "leaveReview": "Write a Review",
+    "signInToReview": "Sign in with Google to post a review.",
+    "submitReview": "Submit Review",
+    "rating": "Rating",
+    "commentPlaceholder": "Share your learning experience...",
+    "noReviews": "No reviews submitted for this course yet."
+  },
+  "EnrollmentModal": {
+    "title": "Course Enrollment Request",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "phone": "Phone Number (WhatsApp)",
+    "notes": "Additional Notes or Questions (optional)",
+    "submit": "Submit Application",
+    "sending": "Submitting...",
+    "success": "Thank you! Your enrollment request has been submitted. We will contact you shortly.",
+    "error": "An error occurred while submitting your request. Please try again."
+  },
+  "About": {
+    "title": "About Drive&Talk Academy",
+    "subtitle": "Your bridge to language fluency, theory certification, and scientific expertise in the Netherlands.",
+    "missionTitle": "Our Mission",
+    "missionText": "Drive&Talk is an integrated language and vocational learning academy specializing in Dutch language immersion, English proficiency, Driving theory preparation, and Chemistry courses tailored for international students and working professionals across the Netherlands.",
+    "contactCardsTitle": "Direct Contact & Opening Hours",
+    "emailLabel": "Send us an Email",
+    "phoneLabel": "WhatsApp & Phone",
+    "hoursLabel": "Opening Hours",
+    "whatsappText": "Chat on WhatsApp"
+  },
+  "SuccessStories": {
+    "title": "Student Success Stories",
+    "subtitle": "Inspiring stories from students who achieved their goals with Drive&Talk.",
+    "courseCompleted": "Course Completed",
+    "noStories": "No success stories available at the moment."
+  },
+  "Contact": {
+    "title": "Get in Touch",
+    "subtitle": "Have questions about our programs or need personalized advice? We are here to help.",
+    "formTitle": "Send Us a Message",
+    "submit": "Send Message",
+    "sending": "Sending...",
+    "success": "Thank you for reaching out! We will respond to your message promptly.",
+    "error": "Failed to send your message."
+  },
+  "Admin": {
+    "title": "Drive&Talk Administrator Dashboard",
+    "metricsLeads": "Total Inquiries",
+    "metricsPending": "Pending Review",
+    "metricsCourses": "Active Courses",
+    "metricsStories": "Success Stories",
+    "tabInbox": "Inquiries & Enrollments Inbox",
+    "tabCourses": "Courses Management",
+    "tabStories": "Success Stories Management",
+    "tabSettings": "Academy Settings",
+    "replyModalTitle": "Reply via Email (Mailjet)",
+    "sendReply": "Send Email Reply",
+    "statusPending": "Pending",
+    "statusReplied": "Replied",
+    "statusArchived": "Archived"
+  }
+}
