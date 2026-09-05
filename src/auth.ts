@@ -1,14 +1,17 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { connectDB } from '@/lib/db';
+import { Setting } from '@/models/Setting';
 
-const adminEmails = (
-  process.env.ADMIN_EMAILS || 'info@drivetalk.nl,samkazah444@gmail.com'
+const envAdminEmails = (
+  process.env.ADMIN_EMAILS ||
+  'info@drivetalk.nl,samkazah444@gmail.com,sami16kazah@gmail.com,samikazah@gmail.com'
 )
   .split(',')
   .map((email) => email.trim().toLowerCase());
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+const ENV_ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -24,20 +27,47 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        const email = (credentials?.email as string)?.trim().toLowerCase();
-        const password = credentials?.password as string;
+        const inputEmail = (credentials?.email as string)?.trim().toLowerCase();
+        const inputPassword = credentials?.password as string;
 
-        if (
-          adminEmails.includes(email) &&
-          (password === ADMIN_PASSWORD || password === 'admin' || password === 'admin123')
-        ) {
-          return {
-            id: 'admin-1',
-            name: 'Drive&Talk Admin',
-            email: email,
-            role: 'admin',
-          };
+        if (!inputEmail || !inputPassword) return null;
+
+        try {
+          await connectDB();
+          let settings = await Setting.findOne({ key: 'site_settings' });
+
+          const dbAdminEmail = settings?.adminLoginEmail?.trim().toLowerCase() || 'info@drivetalk.nl';
+          const dbAdminPassword = settings?.adminPassword || ENV_ADMIN_PASSWORD;
+
+          const isEmailMatch =
+            inputEmail === dbAdminEmail || envAdminEmails.includes(inputEmail);
+          const isPasswordMatch =
+            inputPassword === dbAdminPassword || inputPassword === ENV_ADMIN_PASSWORD;
+
+          if (isEmailMatch && isPasswordMatch) {
+            return {
+              id: 'admin-1',
+              name: 'Drive&Talk Admin',
+              email: inputEmail,
+              role: 'admin',
+            };
+          }
+        } catch (error) {
+          console.error('Error during admin credentials authorization:', error);
+          // Fallback to env variables if DB is momentarily unreachable
+          if (
+            envAdminEmails.includes(inputEmail) &&
+            inputPassword === ENV_ADMIN_PASSWORD
+          ) {
+            return {
+              id: 'admin-1',
+              name: 'Drive&Talk Admin',
+              email: inputEmail,
+              role: 'admin',
+            };
+          }
         }
+
         return null;
       },
     }),
@@ -46,11 +76,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role =
-          (user as any).role ||
-          (adminEmails.includes((user.email || '').toLowerCase()) ? 'admin' : 'user');
-      } else if (token.email) {
-        token.role = adminEmails.includes((token.email as string).toLowerCase()) ? 'admin' : 'user';
+        token.role = (user as any).role || 'user';
       }
       return token;
     },
@@ -63,6 +89,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   pages: {
-    signIn: '/admin/login',
+    signIn: '/nl/admin/login',
+    error: '/nl/admin/login',
   },
 });

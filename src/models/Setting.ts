@@ -5,6 +5,8 @@ export interface ISetting extends Document {
   adminNotificationEmail: string;
   senderEmail: string;
   senderName: string;
+  adminLoginEmail: string;
+  adminPassword?: string;
 }
 
 const SettingSchema: Schema<ISetting> = new Schema(
@@ -25,6 +27,14 @@ const SettingSchema: Schema<ISetting> = new Schema(
     senderName: {
       type: String,
       default: 'Drive&Talk Academy',
+    },
+    adminLoginEmail: {
+      type: String,
+      default: 'info@drivetalk.nl',
+    },
+    adminPassword: {
+      type: String,
+      default: 'admin123',
     },
   },
   {

@@ -29,9 +29,15 @@ export default async function AdminDashboardPage({
 }) {
   const session = await auth();
 
-  // Double check admin protection
-  if (!session || (session.user as any)?.role !== 'admin') {
+  // Redirect unauthenticated visitors
+  if (!session || !session.user) {
     redirect(`/${locale}/admin/login`);
+  }
+
+  // Verify admin authorization
+  const role = (session.user as any)?.role;
+  if (role !== 'admin') {
+    redirect(`/${locale}/admin/login?error=Unauthorized`);
   }
 
   const metrics = await getAdminMetrics();

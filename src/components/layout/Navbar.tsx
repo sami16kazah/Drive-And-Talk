@@ -114,7 +114,7 @@ export const Navbar: React.FC = () => {
               </div>
             ) : (
               <button
-                onClick={() => signIn('google')}
+                onClick={() => signIn('google', { callbackUrl: window.location.pathname })}
                 className="flex items-center gap-1.5 px-4 py-2 bg-brand-dark hover:bg-brand-heading text-white text-sm font-semibold rounded-full transition-colors"
               >
                 <LoginIcon fontSize="small" />
@@ -203,7 +203,10 @@ export const Navbar: React.FC = () => {
               </div>
             ) : (
               <button
-                onClick={() => signIn('google')}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  signIn('google', { callbackUrl: window.location.pathname });
+                }}
                 className="flex items-center justify-center gap-2 w-full py-3 bg-brand-dark text-white font-bold rounded-xl"
               >
                 <LoginIcon />
