@@ -7,31 +7,47 @@ import { auth } from './auth';
 const intlMiddleware = createIntlMiddleware(routing);
 
 export default async function middleware(req: NextRequest) {
-  const pathname = req.nextUrl.pathname;
+  const { pathname } = req.nextUrl;
 
-  // Check if target pathname is an admin login route (allow access)
-  const isAdminLoginRoute =
-    pathname.includes('/admin/login') ||
-    pathname.match(/^\/(nl|en)\/admin\/login(\/.*)?$/);
+  // Ignore static assets, next internal files, and API endpoints
+  if (
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/_vercel') ||
+    pathname.includes('.')
+  ) {
+    return NextResponse.next();
+  }
 
-  if (isAdminLoginRoute) {
+  // Extract locale if present in pathname (/nl, /en)
+  const localeMatch = pathname.match(/^\/(nl|en)($|\/)/);
+  const locale = localeMatch ? localeMatch[1] : routing.defaultLocale;
+
+  // Check if target is admin login route
+  const isAdminLogin =
+    pathname === '/admin/login' ||
+    pathname === `/${locale}/admin/login`;
+
+  // Check if target is admin protected route (excluding login)
+  const isAdminProtected =
+    (pathname === '/admin' || pathname.startsWith('/admin/')) ||
+    (pathname === `/${locale}/admin` || pathname.startsWith(`/${locale}/admin/`));
+
+  if (isAdminLogin) {
+    const session = await auth();
+    const isAdmin = (session?.user as any)?.role === 'admin';
+    if (isAdmin) {
+      return NextResponse.redirect(new URL(`/${locale}/admin`, req.url));
+    }
     return intlMiddleware(req);
   }
 
-  // Check if target pathname is an admin protected route
-  const isAdminRoute =
-    pathname.includes('/admin') ||
-    pathname.match(/^\/(nl|en)\/admin(\/.*)?$/);
-
-  if (isAdminRoute) {
+  if (isAdminProtected) {
     const session = await auth();
-    const userRole = (session?.user as any)?.role;
+    const isAdmin = (session?.user as any)?.role === 'admin';
 
-    if (!session || userRole !== 'admin') {
-      const localeMatch = pathname.match(/^\/(nl|en)/);
-      const currentLocale = localeMatch ? localeMatch[1] : 'nl';
-      const redirectUrl = new URL(`/${currentLocale}/admin/login`, req.url);
-      return NextResponse.redirect(redirectUrl);
+    if (!isAdmin) {
+      return NextResponse.redirect(new URL(`/${locale}/admin/login`, req.url));
     }
   }
 
@@ -39,6 +55,6 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ['/', '/(nl|en)/:path*', '/((?!_next|_vercel|.*\\..*).*)'],
+  // Match all request paths except api, _next, and files with extensions
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
 };

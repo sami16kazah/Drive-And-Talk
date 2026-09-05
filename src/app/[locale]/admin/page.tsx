@@ -31,7 +31,7 @@ export default async function AdminDashboardPage({
 
   // Double check admin protection
   if (!session || (session.user as any)?.role !== 'admin') {
-    redirect(`/${locale}`);
+    redirect(`/${locale}/admin/login`);
   }
 
   const metrics = await getAdminMetrics();
