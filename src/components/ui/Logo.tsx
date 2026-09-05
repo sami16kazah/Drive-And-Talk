@@ -1,54 +1,39 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import Image from 'next/image';
 
 interface LogoProps {
   className?: string;
   variant?: 'light' | 'dark' | 'full';
   showSubtitle?: boolean;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 export const Logo: React.FC<LogoProps> = ({
   className = '',
   variant = 'full',
-  showSubtitle = true,
+  size = 'md',
 }) => {
   const isDark = variant === 'dark';
 
+  const sizeClasses = {
+    sm: 'h-10 w-auto',
+    md: 'h-14 sm:h-16 w-auto',
+    lg: 'h-20 sm:h-24 w-auto',
+  };
+
   return (
-    <div className={`inline-flex flex-col items-center justify-center text-center select-none ${className}`}>
-      {/* Brand Initials "DT" */}
-      <div className="flex items-center justify-center leading-none tracking-tight">
-        <span
-          className="font-serif font-bold text-4xl sm:text-5xl text-[#00B050]"
-          style={{ fontFamily: 'Georgia, Cambria, serif', letterSpacing: '-0.05em' }}
-        >
-          D
-        </span>
-        <span
-          className="font-serif font-bold text-4xl sm:text-5xl text-[#00B050] -ml-1"
-          style={{ fontFamily: 'Georgia, Cambria, serif' }}
-        >
-          T
-        </span>
-      </div>
-
-      {/* Sub-text 1: DRIVE & TALK */}
-      <div className="mt-1 text-[#00B050] font-black text-xs sm:text-sm tracking-[0.25em] uppercase leading-tight">
-        DRIVE &amp; TALK
-      </div>
-
-      {/* Sub-text 2: English · Dutch · Driving */}
-      {showSubtitle && (
-        <div
-          className={`mt-0.5 text-[9px] sm:text-[10px] tracking-[0.18em] font-medium leading-none ${
-            isDark ? 'text-gray-300' : 'text-[#00B050]/80'
-          }`}
-        >
-          English · Dutch · Driving
-        </div>
-      )}
+    <div
+      className={`inline-flex items-center justify-center select-none ${
+        isDark ? 'bg-white p-2.5 rounded-2xl shadow-md border border-brand-green/30' : ''
+      } ${className}`}
+    >
+      <img
+        src="/logo.png"
+        alt="Drive & Talk"
+        className={`${sizeClasses[size]} object-contain drop-shadow-sm`}
+      />
     </div>
   );
 };
