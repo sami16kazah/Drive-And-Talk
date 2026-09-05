@@ -9,7 +9,16 @@ const intlMiddleware = createIntlMiddleware(routing);
 export default async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
 
-  // Check if target pathname is an admin route (e.g. /admin, /nl/admin, /en/admin)
+  // Check if target pathname is an admin login route (allow access)
+  const isAdminLoginRoute =
+    pathname.includes('/admin/login') ||
+    pathname.match(/^\/(nl|en)\/admin\/login(\/.*)?$/);
+
+  if (isAdminLoginRoute) {
+    return intlMiddleware(req);
+  }
+
+  // Check if target pathname is an admin protected route
   const isAdminRoute =
     pathname.includes('/admin') ||
     pathname.match(/^\/(nl|en)\/admin(\/.*)?$/);
@@ -21,7 +30,7 @@ export default async function middleware(req: NextRequest) {
     if (!session || userRole !== 'admin') {
       const localeMatch = pathname.match(/^\/(nl|en)/);
       const currentLocale = localeMatch ? localeMatch[1] : 'nl';
-      const redirectUrl = new URL(`/${currentLocale}`, req.url);
+      const redirectUrl = new URL(`/${currentLocale}/admin/login`, req.url);
       return NextResponse.redirect(redirectUrl);
     }
   }
