@@ -88,7 +88,7 @@ export const EmailReplyModal: React.FC<EmailReplyModalProps> = ({
             {recipientEmail}&gt;
           </p>
           <p>
-            <strong className="text-brand-heading">Verzender:</strong> Mailjet Service (info@drivetalk.nl)
+            <strong className="text-brand-heading">Verzender:</strong> Mailjet (afzender uit E-mail Instellingen)
           </p>
         </div>
 

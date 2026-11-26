@@ -4,6 +4,8 @@ import { Course } from '@/models/Course';
 import { SuccessStory } from '@/models/SuccessStory';
 import { Setting } from '@/models/Setting';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     await connectDB();

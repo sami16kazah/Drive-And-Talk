@@ -19,6 +19,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
   courseTitle,
 }) => {
   const t = useTranslations('EnrollmentModal');
+  const tf = useTranslations('Forms');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -87,7 +88,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
           <div className="w-16 h-16 bg-emerald-100 text-brand-green rounded-full flex items-center justify-center mx-auto text-3xl font-bold">
             ✓
           </div>
-          <h4 className="text-xl font-bold text-brand-heading">Aanvraag Ontvangen!</h4>
+          <h4 className="text-xl font-bold text-brand-heading">{t('successTitle')}</h4>
           <p className="text-sm text-gray-600 max-w-sm mx-auto">{t('success')}</p>
         </div>
       ) : (
@@ -101,7 +102,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-brand-heading uppercase mb-1">
-                {t('firstName')} *
+                {tf('firstName')} *
               </label>
               <input
                 type="text"
@@ -109,13 +110,13 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                 required
                 value={formData.firstName}
                 onChange={handleChange}
-                placeholder="Jan"
+                placeholder={tf('firstNamePlaceholder')}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 outline-none text-sm"
               />
             </div>
             <div>
               <label className="block text-xs font-bold text-brand-heading uppercase mb-1">
-                {t('lastName')} *
+                {tf('lastName')} *
               </label>
               <input
                 type="text"
@@ -123,7 +124,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                 required
                 value={formData.lastName}
                 onChange={handleChange}
-                placeholder="De Vries"
+                placeholder={tf('lastNamePlaceholder')}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 outline-none text-sm"
               />
             </div>
@@ -132,7 +133,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-brand-heading uppercase mb-1">
-                {t('email')} *
+                {tf('email')} *
               </label>
               <input
                 type="email"
@@ -140,13 +141,13 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                 required
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="jan@example.nl"
+                placeholder={tf('emailPlaceholder')}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 outline-none text-sm"
               />
             </div>
             <div>
               <label className="block text-xs font-bold text-brand-heading uppercase mb-1">
-                {t('phone')} *
+                {tf('phone')} *
               </label>
               <input
                 type="tel"
@@ -154,7 +155,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
                 required
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="+31 6 12345678"
+                placeholder={tf('phonePlaceholder')}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 outline-none text-sm"
               />
             </div>
@@ -169,7 +170,7 @@ export const EnrollmentModal: React.FC<EnrollmentModalProps> = ({
               rows={3}
               value={formData.notes}
               onChange={handleChange}
-              placeholder="Welke dagen schikken het beste? Vragen..."
+              placeholder={t('notesPlaceholder')}
               className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 outline-none text-sm resize-none"
             />
           </div>

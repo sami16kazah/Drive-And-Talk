@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 @layer base {
+  /* Default brand colors (overridden at runtime by the theme set in the admin dashboard) */
+  :root {
+    --brand-green: 0 176 80;
+    --brand-hover: 0 146 67;
+    --brand-dark: 26 46 32;
+    --brand-heading: 15 31 20;
+    --brand-body: 30 41 59;
+    --brand-mint: 248 250 247;
+    --brand-light-mint: 234 245 238;
+  }
+
   body {
     @apply bg-white text-brand-body font-sans antialiased selection:bg-brand-green selection:text-white;
   }

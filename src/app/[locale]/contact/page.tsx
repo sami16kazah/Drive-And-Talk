@@ -7,10 +7,15 @@ import EmailIcon from '@mui/icons-material/Email';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { useSiteSettings } from '@/components/providers/SiteSettingsProvider';
+import { whatsappLink } from '@/lib/contentUtils';
 
 export default function ContactPage() {
   const t = useTranslations('Contact');
   const tInfo = useTranslations('SchoolInfo');
+  const tf = useTranslations('Forms');
+  const { contact } = useSiteSettings();
+  const waLink = whatsappLink(contact.whatsappNumber);
 
   const [form, setForm] = useState({
     firstName: '',
@@ -60,7 +65,7 @@ export default function ContactPage() {
         {/* Title Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <span className="px-4 py-1.5 bg-brand-lightMint text-brand-green font-extrabold text-xs rounded-full uppercase tracking-wider">
-            Contact
+            {t('eyebrow')}
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-brand-heading">{t('title')}</h1>
           <p className="text-base text-gray-600">{t('subtitle')}</p>
@@ -74,7 +79,7 @@ export default function ContactPage() {
             {submitted ? (
               <div className="p-8 bg-emerald-50 border border-emerald-200 rounded-2xl text-center space-y-3">
                 <CheckCircleIcon className="text-brand-green text-5xl" />
-                <h4 className="text-xl font-bold text-brand-heading">Bericht Verzonden!</h4>
+                <h4 className="text-xl font-bold text-brand-heading">{t('successTitle')}</h4>
                 <p className="text-sm text-gray-600">{t('success')}</p>
               </div>
             ) : (
@@ -86,27 +91,27 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-brand-heading uppercase mb-1">
-                      Voornaam *
+                      {tf('firstName')} *
                     </label>
                     <input
                       type="text"
                       required
                       value={form.firstName}
                       onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-                      placeholder="Jan"
+                      placeholder={tf('firstNamePlaceholder')}
                       className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-brand-green outline-none text-sm"
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-brand-heading uppercase mb-1">
-                      Achternaam *
+                      {tf('lastName')} *
                     </label>
                     <input
                       type="text"
                       required
                       value={form.lastName}
                       onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-                      placeholder="De Vries"
+                      placeholder={tf('lastNamePlaceholder')}
                       className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-brand-green outline-none text-sm"
                     />
                   </div>
@@ -115,27 +120,27 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-brand-heading uppercase mb-1">
-                      E-mailadres *
+                      {tf('email')} *
                     </label>
                     <input
                       type="email"
                       required
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      placeholder="jan@example.nl"
+                      placeholder={tf('emailPlaceholder')}
                       className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-brand-green outline-none text-sm"
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-brand-heading uppercase mb-1">
-                      Telefoonnummer (WhatsApp) *
+                      {tf('phone')} *
                     </label>
                     <input
                       type="tel"
                       required
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      placeholder="+31 6 12345678"
+                      placeholder={tf('phonePlaceholder')}
                       className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-brand-green outline-none text-sm"
                     />
                   </div>
@@ -143,14 +148,14 @@ export default function ContactPage() {
 
                 <div>
                   <label className="block text-xs font-bold text-brand-heading uppercase mb-1">
-                    Uw Bericht *
+                    {tf('message')} *
                   </label>
                   <textarea
                     rows={5}
                     required
                     value={form.notes}
                     onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                    placeholder="Stel hier uw vraag..."
+                    placeholder={tf('messagePlaceholder')}
                     className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-brand-green outline-none text-sm resize-y"
                   />
                 </div>
@@ -170,7 +175,7 @@ export default function ContactPage() {
           {/* Right Column: Embedded Contact Info & WhatsApp CTA */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-brand-dark text-white p-8 rounded-3xl shadow-xl space-y-6">
-              <h3 className="text-2xl font-bold text-brand-green">Contactgegevens</h3>
+              <h3 className="text-2xl font-bold text-brand-green">{t('infoTitle')}</h3>
 
               <div className="space-y-4 text-sm text-gray-200">
                 <div className="flex items-center gap-3">
@@ -178,9 +183,9 @@ export default function ContactPage() {
                     <EmailIcon />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400 font-bold uppercase">E-mail</p>
-                    <a href="mailto:info@drivetalk.nl" className="hover:text-brand-green font-bold">
-                      info@drivetalk.nl
+                    <p className="text-xs text-gray-400 font-bold uppercase">{t('emailLabel')}</p>
+                    <a href={`mailto:${contact.email}`} className="hover:text-brand-green font-bold">
+                      {contact.email}
                     </a>
                   </div>
                 </div>
@@ -190,14 +195,14 @@ export default function ContactPage() {
                     <WhatsAppIcon />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400 font-bold uppercase">WhatsApp / Telefoon</p>
+                    <p className="text-xs text-gray-400 font-bold uppercase">{t('phoneLabel')}</p>
                     <a
-                      href="https://wa.me/31628468247"
+                      href={waLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-brand-green font-bold"
                     >
-                      +31 6 28468247
+                      {contact.phoneDisplay}
                     </a>
                   </div>
                 </div>
@@ -207,7 +212,7 @@ export default function ContactPage() {
                     <AccessTimeIcon />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400 font-bold uppercase">Openingstijden</p>
+                    <p className="text-xs text-gray-400 font-bold uppercase">{t('hoursLabel')}</p>
                     <p className="font-bold">{tInfo('hours')}</p>
                   </div>
                 </div>
@@ -215,13 +220,13 @@ export default function ContactPage() {
 
               <div className="pt-4 border-t border-gray-800">
                 <a
-                  href="https://wa.me/31628468247"
+                  href={waLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 w-full py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold rounded-2xl shadow-lg transition-all"
                 >
                   <WhatsAppIcon />
-                  <span>Start WhatsApp Gesprek</span>
+                  <span>{t('whatsappCta')}</span>
                 </a>
               </div>
             </div>

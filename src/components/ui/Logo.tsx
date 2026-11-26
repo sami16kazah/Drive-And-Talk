@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+import { useSiteSettings } from '@/components/providers/SiteSettingsProvider';
 
 interface LogoProps {
   className?: string;
@@ -15,6 +15,7 @@ export const Logo: React.FC<LogoProps> = ({
   variant = 'full',
   size = 'md',
 }) => {
+  const { branding } = useSiteSettings();
   const isDark = variant === 'dark';
 
   const sizeClasses = {
@@ -30,8 +31,8 @@ export const Logo: React.FC<LogoProps> = ({
       } ${className}`}
     >
       <img
-        src="/logo.png"
-        alt="Drive & Talk"
+        src={branding.logoUrl || '/logo.png'}
+        alt={branding.logoAlt}
         className={`${sizeClasses[size]} object-contain drop-shadow-sm`}
       />
     </div>

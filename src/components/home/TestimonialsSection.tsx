@@ -14,7 +14,7 @@ interface Story {
   imageUrl?: string;
 }
 
-export const TestimonialsSection: React.FC = () => {
+export const TestimonialsSection: React.FC<{ limit?: number }> = ({ limit = 3 }) => {
   const t = useTranslations('Home');
   const locale = useLocale();
   const [stories, setStories] = useState<Story[]>([]);
@@ -23,10 +23,10 @@ export const TestimonialsSection: React.FC = () => {
     fetch('/api/stories')
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) setStories(data.slice(0, 3));
+        if (Array.isArray(data)) setStories(data.slice(0, Math.max(0, limit)));
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [limit]);
 
   if (stories.length === 0) return null;
 
@@ -42,7 +42,7 @@ export const TestimonialsSection: React.FC = () => {
             href="/success-stories"
             className="flex items-center gap-1 text-brand-green font-bold text-sm hover:underline"
           >
-            <span>Bekijk alle verhalen</span>
+            <span>{t('testimonialsViewAll')}</span>
             <ArrowForwardIcon fontSize="small" />
           </Link>
         </div>

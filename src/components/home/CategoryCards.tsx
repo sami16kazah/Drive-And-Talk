@@ -1,78 +1,57 @@
 'use client';
 
 import React from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import TranslateIcon from '@mui/icons-material/Translate';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import LanguageIcon from '@mui/icons-material/Language';
-import ScienceIcon from '@mui/icons-material/Science';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useSiteSettings } from '@/components/providers/SiteSettingsProvider';
+import { CategoryIcon, CATEGORY_COLORS } from '@/components/ui/CategoryIcon';
+import { localized } from '@/lib/contentUtils';
 
 export const CategoryCards: React.FC = () => {
-  const categories = [
-    {
-      title: 'Nederlandse Taal',
-      subtitle: 'Intensief onderdompelingsonderwijs van A1 tot B2 Staatsexamen.',
-      icon: <TranslateIcon className="text-brand-green text-4xl" />,
-      categoryParam: 'Dutch',
-      color: 'bg-emerald-50 border-emerald-100',
-    },
-    {
-      title: 'CBR Rijbewijs Theorie',
-      subtitle: 'Autotheorie examenvoorbereiding in het Nederlands & Engels.',
-      icon: <DirectionsCarIcon className="text-blue-600 text-4xl" />,
-      categoryParam: 'Driving',
-      color: 'bg-blue-50 border-blue-100',
-    },
-    {
-      title: 'Engelse Taalvaardigheid',
-      subtitle: 'Zakelijk & academisch Engels voor carrière en studie.',
-      icon: <LanguageIcon className="text-purple-600 text-4xl" />,
-      categoryParam: 'English',
-      color: 'bg-purple-50 border-purple-100',
-    },
-    {
-      title: 'Chemie & Vakcursussen',
-      subtitle: 'Toegepaste scheikunde lessen voor hbo/wo en lab-professionals.',
-      icon: <ScienceIcon className="text-amber-600 text-4xl" />,
-      categoryParam: 'Chemistry',
-      color: 'bg-amber-50 border-amber-100',
-    },
-  ];
+  const t = useTranslations('Home');
+  const locale = useLocale();
+  const { categories } = useSiteSettings();
+  const visible = categories.filter((c) => c.showOnHome);
+
+  if (visible.length === 0) return null;
 
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
-          <h2 className="text-3xl font-extrabold text-brand-heading">
-            Onze Vakgebieden &amp; Specialisaties
-          </h2>
-          <p className="text-sm text-gray-600">
-            Ontdek waarom duizenden cursisten in Nederland kiezen voor de gecombineerde aanpak van Drive&amp;Talk Academy.
-          </p>
+          <h2 className="text-3xl font-extrabold text-brand-heading">{t('categoriesTitle')}</h2>
+          <p className="text-sm text-gray-600">{t('categoriesSubtitle')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categories.map((cat, idx) => (
-            <Link
-              key={idx}
-              href={`/courses?category=${cat.categoryParam}`}
-              className={`p-6 rounded-2xl border ${cat.color} hover:shadow-cardHover transition-all duration-300 flex flex-col justify-between group`}
-            >
-              <div className="space-y-4">
-                <div className="p-3 bg-white rounded-2xl w-fit shadow-sm group-hover:scale-110 transition-transform">
-                  {cat.icon}
+          {visible.map((cat, idx) => {
+            const colors = CATEGORY_COLORS[cat.color] || CATEGORY_COLORS.emerald;
+            return (
+              <Link
+                key={`${cat.value}-${idx}`}
+                href={`/courses?category=${encodeURIComponent(cat.value)}`}
+                className={`p-6 rounded-2xl border ${colors.card} hover:shadow-cardHover transition-all duration-300 flex flex-col justify-between group`}
+              >
+                <div className="space-y-4">
+                  <div className="p-3 bg-white rounded-2xl w-fit shadow-sm group-hover:scale-110 transition-transform">
+                    <CategoryIcon name={cat.icon} className={`${colors.icon} text-4xl`} />
+                  </div>
+                  <h3 className="text-xl font-bold text-brand-heading">
+                    {localized(cat.homeTitle, locale) || localized(cat.label, locale)}
+                  </h3>
+                  <p className="text-xs text-gray-600 leading-relaxed">
+                    {localized(cat.homeDescription, locale)}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-brand-heading">{cat.title}</h3>
-                <p className="text-xs text-gray-600 leading-relaxed">{cat.subtitle}</p>
-              </div>
 
-              <div className="mt-6 flex items-center gap-1 text-brand-green font-bold text-xs group-hover:translate-x-1 transition-transform">
-                <span>Bekijk cursussen</span>
-                <ArrowForwardIcon fontSize="inherit" />
-              </div>
-            </Link>
-          ))}
+                <div className="mt-6 flex items-center gap-1 text-brand-green font-bold text-xs group-hover:translate-x-1 transition-transform">
+                  <span>{t('categoriesCta')}</span>
+                  <ArrowForwardIcon fontSize="inherit" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

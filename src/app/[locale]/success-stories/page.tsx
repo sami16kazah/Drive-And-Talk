@@ -3,6 +3,7 @@ import { connectDB } from '@/lib/db';
 import { SuccessStory } from '@/models/SuccessStory';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import VerifiedIcon from '@mui/icons-material/Verified';
+import { getTranslations } from 'next-intl/server';
 
 async function getSuccessStories() {
   try {
@@ -21,6 +22,7 @@ export default async function SuccessStoriesPage({
   params: { locale: string };
 }) {
   const stories = await getSuccessStories();
+  const t = await getTranslations({ locale, namespace: 'SuccessStories' });
 
   return (
     <div className="py-16 bg-gray-50/50 min-h-screen">
@@ -28,21 +30,21 @@ export default async function SuccessStoriesPage({
         {/* Header Title */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <span className="px-4 py-1.5 bg-brand-lightMint text-brand-green font-extrabold text-xs rounded-full uppercase tracking-wider">
-            Ervaringen
+            {t('eyebrow')}
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-brand-heading">
-            Succesverhalen van Onze Cursisten
+            {t('title')}
           </h1>
           <p className="text-base text-gray-600">
-            Lees hoe onze studenten hun taalniveau hebben verhoogd en hun CBR-rijbewijstheorie hebben behaald.
+            {t('subtitle')}
           </p>
         </div>
 
         {/* Stories Grid */}
         {stories.length === 0 ? (
           <div className="py-16 text-center bg-white rounded-3xl border border-gray-200 max-w-md mx-auto space-y-2">
-            <h4 className="text-lg font-bold text-brand-heading">Geen succesverhalen</h4>
-            <p className="text-xs text-gray-500">Er zijn momenteel geen verhalen gepubliceerd.</p>
+            <h4 className="text-lg font-bold text-brand-heading">{t('noStoriesTitle')}</h4>
+            <p className="text-xs text-gray-500">{t('noStories')}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -58,10 +60,10 @@ export default async function SuccessStoriesPage({
                     <div className="flex items-center justify-between">
                       <span className="inline-flex items-center gap-1 px-3 py-1 bg-brand-lightMint text-brand-green text-xs font-extrabold rounded-full">
                         <VerifiedIcon fontSize="inherit" />
-                        <span>Geslaagd</span>
+                        <span>{t('badge')}</span>
                       </span>
                       <span className="text-xs text-gray-400 font-medium">
-                        {new Date(s.date).toLocaleDateString()}
+                        {new Date(s.date).toLocaleDateString(locale === 'en' ? 'en-GB' : 'nl-NL')}
                       </span>
                     </div>
 

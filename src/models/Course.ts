@@ -10,7 +10,12 @@ export interface ICourse extends Document {
     en: string;
     nl: string;
   };
-  category: 'English' | 'Dutch' | 'Driving' | 'Chemistry' | 'Other';
+  /** Category value, configured in the CMS (Website Inhoud > Algemeen > Categories). */
+  category: string;
+  syllabus?: {
+    en: string[];
+    nl: string[];
+  };
   price: number;
   imageUrl?: string;
   cloudinaryPublicId?: string;
@@ -36,9 +41,12 @@ const CourseSchema: Schema<ICourse> = new Schema(
     },
     category: {
       type: String,
-      enum: ['English', 'Dutch', 'Driving', 'Chemistry', 'Other'],
       required: true,
       default: 'Dutch',
+    },
+    syllabus: {
+      en: { type: [String], default: [] },
+      nl: { type: [String], default: [] },
     },
     price: {
       type: Number,

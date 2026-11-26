@@ -8,13 +8,23 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { globalDefaults } from '@/content/globalDefaults';
+
+type CategoryOption = { value: string; label: { nl?: string; en?: string } };
+
+const toLines = (text: string) =>
+  text
+    .split('\n')
+    .map((l) => l.trim())
+    .filter(Boolean);
 
 export interface ICourseItem {
   _id: string;
   title: { en: string; nl: string };
   slug: string;
   description: { en: string; nl: string };
-  category: 'English' | 'Dutch' | 'Driving' | 'Chemistry' | 'Other';
+  category: string;
+  syllabus?: { en: string[]; nl: string[] };
   price: number;
   imageUrl?: string;
   cloudinaryPublicId?: string;
@@ -38,7 +48,10 @@ export const CourseManager: React.FC = () => {
     imageUrl: '',
     cloudinaryPublicId: '',
     isActive: true,
+    syllabusNl: '',
+    syllabusEn: '',
   });
+  const [categories, setCategories] = useState<CategoryOption[]>(globalDefaults.categories);
 
   const [uploading, setUploading] = useState(false);
   const [saveLoading, setSaveLoading] = useState(false);
@@ -61,7 +74,16 @@ export const CourseManager: React.FC = () => {
 
   useEffect(() => {
     fetchCourses();
+    fetch('/api/content?scope=global')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (Array.isArray(json?.data?.categories)) setCategories(json.data.categories);
+      })
+      .catch((err) => console.error('Error fetching categories:', err));
   }, []);
+
+  const categoryName = (value: string) =>
+    categories.find((c) => c.value === value)?.label?.nl || value;
 
   const openCreateModal = () => {
     setEditingCourse(null);
@@ -71,11 +93,13 @@ export const CourseManager: React.FC = () => {
       slug: '',
       descEn: '',
       descNl: '',
-      category: 'Dutch',
+      category: categories[0]?.value || 'Dutch',
       price: 295,
       imageUrl: '',
       cloudinaryPublicId: '',
       isActive: true,
+      syllabusNl: '',
+      syllabusEn: '',
     });
     setErrorMsg('');
     setIsModalOpen(true);
@@ -94,6 +118,8 @@ export const CourseManager: React.FC = () => {
       imageUrl: course.imageUrl || '',
       cloudinaryPublicId: course.cloudinaryPublicId || '',
       isActive: course.isActive,
+      syllabusNl: (course.syllabus?.nl || []).join('\n'),
+      syllabusEn: (course.syllabus?.en || []).join('\n'),
     });
     setErrorMsg('');
     setIsModalOpen(true);
@@ -147,6 +173,7 @@ export const CourseManager: React.FC = () => {
       imageUrl: form.imageUrl,
       cloudinaryPublicId: form.cloudinaryPublicId,
       isActive: form.isActive,
+      syllabus: { nl: toLines(form.syllabusNl), en: toLines(form.syllabusEn) },
     };
 
     try {
@@ -255,7 +282,7 @@ export const CourseManager: React.FC = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 font-semibold text-gray-600">{c.category}</td>
+                    <td className="px-6 py-4 font-semibold text-gray-600">{categoryName(c.category)}</td>
                     <td className="px-6 py-4 font-bold text-brand-green">€{c.price}</td>
                     <td className="px-6 py-4">
                       <button
@@ -353,15 +380,19 @@ export const CourseManager: React.FC = () => {
               </label>
               <select
                 value={form.category}
-                onChange={(e) => setForm({ ...form, category: e.target.value as any })}
+                onChange={(e) => setForm({ ...form, category: e.target.value })}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-brand-green outline-none text-sm"
               >
-                <option value="Dutch">Dutch</option>
-                <option value="English">English</option>
-                <option value="Driving">Driving</option>
-                <option value="Chemistry">Chemistry</option>
-                <option value="Other">Other</option>
+                {categories.map((cat) => (
+                  <option key={cat.value} value={cat.value}>
+                    {cat.label?.nl || cat.value}
+                  </option>
+                ))}
+                {!categories.some((cat) => cat.value === form.category) && form.category && (
+                  <option value={form.category}>{form.category}</option>
+                )}
               </select>
+              <p className="text-[11px] text-gray-400 mt-1">Categorieën beheert u in Website Inhoud &rsaquo; Algemeen.</p>
             </div>
             <div>
               <label className="block text-xs font-bold text-gray-600 uppercase mb-1">
@@ -401,6 +432,33 @@ export const CourseManager: React.FC = () => {
                 value={form.descEn}
                 onChange={(e) => setForm({ ...form, descEn: e.target.value })}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-brand-green outline-none text-sm resize-none"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold text-gray-600 uppercase mb-1">
+                Lesprogramma (Nederlands) – één punt per regel
+              </label>
+              <textarea
+                rows={4}
+                value={form.syllabusNl}
+                onChange={(e) => setForm({ ...form, syllabusNl: e.target.value })}
+                placeholder="Leeg laten = standaard lesprogramma uit Website Inhoud"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-brand-green outline-none text-sm resize-y"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-gray-600 uppercase mb-1">
+                Syllabus (English) – one point per line
+              </label>
+              <textarea
+                rows={4}
+                value={form.syllabusEn}
+                onChange={(e) => setForm({ ...form, syllabusEn: e.target.value })}
+                placeholder="Leave empty = default syllabus from Website Content"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-brand-green outline-none text-sm resize-y"
               />
             </div>
           </div>

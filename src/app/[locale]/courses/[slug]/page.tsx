@@ -1,5 +1,8 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
+import { getGlobalContent } from '@/lib/content';
+import { categoryLabel } from '@/lib/categories';
 import { connectDB } from '@/lib/db';
 import { Course } from '@/models/Course';
 import { Link } from '@/i18n/routing';
@@ -37,20 +40,17 @@ export default async function CourseDetailPage({
   const title = locale === 'en' ? course.title.en : course.title.nl;
   const description = locale === 'en' ? course.description.en : course.description.nl;
 
-  const syllabusPoints =
-    locale === 'en'
-      ? [
-          'Interactive online and classroom practice modules.',
-          'Real exam simulations and exam strategy coaching.',
-          'Personalized instruction tailored for non-native speakers.',
-          'Comprehensive course material and study guidance included.',
-        ]
-      : [
-          'Interactieve lesmodules en klaslokale oefenopdrachten.',
-          'Echte examen-simulaties en strategieën voor maximale slagingskans.',
-          'Persoonlijke begeleiding afgestemd op anderstaligen.',
-          'Inclusief al het benodigde lesmateriaal en oefenvragen.',
-        ];
+  const [t, site] = await Promise.all([
+    getTranslations({ locale, namespace: 'CourseDetail' }),
+    getGlobalContent(),
+  ]);
+
+  const courseSyllabus: string[] = (course.syllabus?.[locale] || []).filter((p: string) => p && p.trim());
+  const syllabusPoints: string[] =
+    courseSyllabus.length > 0 ? courseSyllabus : ((t.raw('defaultSyllabus') as string[]) || []);
+  const features = (t.raw('features') as string[]) || [];
+  const featureIcons = [AccessTimeIcon, MenuBookIcon, WorkspacePremiumIcon];
+  const catLabel = categoryLabel(site.categories, course.category, locale);
 
   return (
     <div className="py-12 bg-gray-50/50 min-h-screen">
@@ -61,45 +61,44 @@ export default async function CourseDetailPage({
           className="inline-flex items-center gap-1.5 font-bold text-sm text-gray-500 hover:text-brand-green transition-colors"
         >
           <ArrowBackIcon fontSize="small" />
-          <span>Terug naar cursusaanbod</span>
+          <span>{t('back')}</span>
         </Link>
 
         {/* Hero Card Container */}
         <div className="bg-white rounded-3xl p-8 lg:p-10 shadow-card border border-gray-100 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-6">
             <span className="px-3.5 py-1 bg-brand-lightMint text-brand-green font-extrabold text-xs rounded-full uppercase tracking-wider">
-              {course.category}
+              {catLabel}
             </span>
 
             <h1 className="text-3xl sm:text-4xl font-extrabold text-brand-heading">{title}</h1>
 
             <p className="text-base text-gray-600 leading-relaxed">{description}</p>
 
-            <div className="flex flex-wrap items-center gap-6 pt-2 text-sm text-gray-600">
-              <div className="flex items-center gap-2">
-                <AccessTimeIcon className="text-brand-green" />
-                <span>Flexibele lestijden (Ma - Zo)</span>
+            {features.length > 0 && (
+              <div className="flex flex-wrap items-center gap-6 pt-2 text-sm text-gray-600">
+                {features.map((feature, idx) => {
+                  const Icon = featureIcons[idx % featureIcons.length];
+                  return (
+                    <div key={idx} className="flex items-center gap-2">
+                      <Icon className="text-brand-green" />
+                      <span>{feature}</span>
+                    </div>
+                  );
+                })}
               </div>
-              <div className="flex items-center gap-2">
-                <MenuBookIcon className="text-brand-green" />
-                <span>Inclusief Lesmateriaal</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <WorkspacePremiumIcon className="text-brand-green" />
-                <span>Erkend Certificaat</span>
-              </div>
-            </div>
+            )}
 
             <div className="pt-4 flex items-center gap-4 border-t border-gray-100">
               <div>
-                <span className="text-xs text-gray-400 font-medium">Totale Prijs</span>
+                <span className="text-xs text-gray-400 font-medium">{t('totalPrice')}</span>
                 <p className="text-3xl font-black text-brand-green">€{course.price}</p>
               </div>
 
               <EnrollmentModalButton
                 courseId={course._id}
                 courseTitle={title}
-                buttonText="Inschrijven voor deze Cursus"
+                buttonText={t('enrollButton')}
                 className="px-6 py-3 bg-brand-green hover:bg-brand-hover text-white font-extrabold text-sm rounded-xl shadow-md transition-all"
               />
             </div>
@@ -115,7 +114,7 @@ export default async function CourseDetailPage({
                 />
               ) : (
                 <div className="w-full h-80 bg-brand-lightMint flex items-center justify-center text-brand-green font-serif text-3xl font-bold">
-                  Drive&amp;Talk
+                  {site.branding.logoAlt}
                 </div>
               )}
             </div>
@@ -125,10 +124,10 @@ export default async function CourseDetailPage({
         {/* Syllabus Highlights Section */}
         <div className="bg-white rounded-3xl p-8 shadow-card border border-gray-100 space-y-4">
           <h3 className="text-2xl font-bold text-brand-heading">
-            Lesprogramma &amp; Inhoud
+            {t('syllabus')}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {syllabusPoints.map((point, idx) => (
+            {syllabusPoints.map((point: string, idx: number) => (
               <div key={idx} className="flex items-start gap-3 p-4 bg-brand-mint rounded-2xl">
                 <CheckCircleIcon className="text-brand-green mt-0.5" />
                 <span className="text-sm text-brand-body font-medium">{point}</span>

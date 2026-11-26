@@ -12,6 +12,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import { useSiteSettings } from '@/components/providers/SiteSettingsProvider';
+import { whatsappLink } from '@/lib/contentUtils';
 
 export const Navbar: React.FC = () => {
   const t = useTranslations('Navigation');
@@ -19,6 +21,8 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const { data: session, status } = useSession();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { contact } = useSiteSettings();
+  const waLink = whatsappLink(contact.whatsappNumber);
 
   const isAdmin = (session?.user as any)?.role === 'admin';
 
@@ -81,13 +85,13 @@ export const Navbar: React.FC = () => {
 
             {/* WhatsApp CTA */}
             <a
-              href="https://wa.me/31628468247"
+              href={waLink}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-4 py-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-sm rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
             >
               <WhatsAppIcon fontSize="small" />
-              <span>WhatsApp</span>
+              <span>{t('whatsapp')}</span>
             </a>
 
             {/* User Auth */}
@@ -129,7 +133,7 @@ export const Navbar: React.FC = () => {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg text-brand-heading hover:bg-brand-mint focus:outline-none"
-              aria-label="Toggle Navigation Menu"
+              aria-label={t('toggleMenu')}
             >
               {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
@@ -170,13 +174,13 @@ export const Navbar: React.FC = () => {
 
           <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
             <a
-              href="https://wa.me/31628468247"
+              href={waLink}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full py-3 bg-[#25D366] text-white font-bold rounded-xl shadow"
             >
               <WhatsAppIcon />
-              <span>Chat via WhatsApp (+31 6 28468247)</span>
+              <span>{t('whatsappMobile')} ({contact.phoneDisplay})</span>
             </a>
 
             {status === 'authenticated' ? (

@@ -1,4 +1,8 @@
 {
+  "Metadata": {
+    "title": "Drive&Talk Academy - Nederlands, Engels, Rijbewijs Theorie & Chemie",
+    "description": "Geïntegreerde taal- en beroepsacademie in Nederland. Hoge slagingspercentages voor Nederlands B1/B2, Engels, CBR Rijbewijs Theorie en Chemie."
+  },
   "Navigation": {
     "home": "Home",
     "courses": "Aanbod",
@@ -6,16 +10,16 @@
     "about": "Over ons",
     "contact": "Contact",
     "admin": "Beheerder",
-    "whatsapp": "WhatsApp Contact",
+    "whatsapp": "WhatsApp",
+    "whatsappMobile": "Chat via WhatsApp",
     "signIn": "Inloggen met Google",
     "signOut": "Uitloggen",
-    "welcome": "Welkom"
+    "welcome": "Welkom",
+    "toggleMenu": "Navigatiemenu openen/sluiten"
   },
   "SchoolInfo": {
     "name": "Drive&Talk",
     "tagline": "Taal- en Beroepsopleidingen",
-    "email": "info@drivetalk.nl",
-    "phone": "+31628468247",
     "hours": "Maandag t/m Zondag : 09:00 - 22:00",
     "address": "Nederland"
   },
@@ -26,55 +30,98 @@
     "subtitle": "Kwalitatieve cursussen Nederlands, Engels, Rijbewijs Theorie en Chemie. Geïntegreerd taal- en praktijkonderwijs afgestemd op uw succes in Nederland.",
     "ctaExplore": "Bekijk ons Aanbod",
     "ctaContact": "Direct Inschrijven",
-    "statStudents": "1500+ Geslaagde Cursisten",
-    "statPassRate": "98% Slagingspercentage",
-    "statSupport": "7/7 Persoonlijke Begeleiding"
+    "imageAlt": "Drive&Talk Academy Lessen",
+    "imageBadge": "Drive&Talk Academy",
+    "imageCaption": "Lessen in Nederlands, Engels & Rijbewijs",
+    "stats": [
+      { "value": "1500+", "label": "Cursisten" },
+      { "value": "98%", "label": "Slagingspercentage" },
+      { "value": "7/7", "label": "Begeleiding" }
+    ]
   },
   "Home": {
+    "categoriesTitle": "Onze Vakgebieden & Specialisaties",
+    "categoriesSubtitle": "Ontdek waarom duizenden cursisten in Nederland kiezen voor de gecombineerde aanpak van Drive&Talk Academy.",
+    "categoriesCta": "Bekijk cursussen",
+    "featuredEyebrow": "Aanbevolen Programma's",
     "coursesTitle": "Populaire Cursussen & Opleidingen",
     "coursesSubtitle": "Kies het traject dat bij uw doelen past. Met ervaren docenten en flexibele lestijden.",
     "viewAll": "Alle cursussen bekijken",
     "quickInquiryTitle": "Gratis Adviesgesprek Aanvragen",
     "quickInquirySubtitle": "Laat uw gegevens achter. Wij nemen binnen 24 uur vrijblijvend contact met u op.",
+    "quickInquiryNotesLabel": "Vragen of Gewenste Cursus",
+    "quickInquiryNotesPlaceholder": "Bijvoorbeeld: Nederlands B1 of CBR Theorie in het Engels...",
+    "quickInquirySubmit": "Gratis Adviesgesprek Aanvragen",
+    "quickInquirySuccessTitle": "Aanvraag Ontvangen!",
+    "quickInquirySuccessText": "Bedankt voor uw bericht. Ons team neemt binnen 24 uur contact met u op via e-mail of WhatsApp.",
     "testimonialsTitle": "Ervaringen van Onze Cursisten",
-    "testimonialsSubtitle": "Ontdek hoe Drive&Talk studenten helpt hun doelen te bereiken."
+    "testimonialsSubtitle": "Ontdek hoe Drive&Talk studenten helpt hun doelen te bereiken.",
+    "testimonialsViewAll": "Bekijk alle verhalen"
+  },
+  "Forms": {
+    "firstName": "Voornaam",
+    "lastName": "Achternaam",
+    "email": "E-mailadres",
+    "phone": "Telefoon (WhatsApp)",
+    "message": "Uw Bericht",
+    "firstNamePlaceholder": "Jan",
+    "lastNamePlaceholder": "De Vries",
+    "emailPlaceholder": "naam@voorbeeld.nl",
+    "phonePlaceholder": "+31 6 12345678",
+    "messagePlaceholder": "Stel hier uw vraag...",
+    "sending": "Verzenden...",
+    "error": "Fout bij het versturen van uw aanvraag. Probeer het opnieuw."
   },
   "Courses": {
-    "title": "Ons Cursusaanbod",
-    "subtitle": "Geïntegreerde lessen voor studie, werk en rijbewijs.",
-    "allCategories": "Alle Categorieën",
-    "categoryEnglish": "Engels",
-    "categoryDutch": "Nederlands",
-    "categoryDriving": "Rijbewijs Theorie",
-    "categoryChemistry": "Chemie",
-    "categoryOther": "Overig",
-    "price": "Prijs",
-    "duration": "Duur",
-    "details": "Details bekijken",
-    "enrollNow": "Inschrijven voor deze cursus",
-    "noCourses": "Geen cursussen gevonden in deze categorie."
+    "eyebrow": "Cursusaanbod",
+    "title": "Ontdek Ons Volledige Opleidingsaanbod",
+    "subtitle": "Kwalitatief taal- en praktijkonderwijs in Nederland. Filter op categorie om de perfecte cursus voor uw doelen te vinden.",
+    "allCategories": "Alle Cursussen",
+    "price": "Cursusprijs",
+    "details": "Details",
+    "enrollNow": "Inschrijven",
+    "noCoursesTitle": "Geen cursussen gevonden",
+    "noCourses": "Er zijn momenteel geen actieve cursussen in deze categorie.",
+    "imagePlaceholder": "Drive&Talk"
   },
   "CourseDetail": {
-    "back": "Terug naar aanbod",
+    "back": "Terug naar cursusaanbod",
+    "features": [
+      "Flexibele lestijden (Ma - Zo)",
+      "Inclusief Lesmateriaal",
+      "Erkend Certificaat"
+    ],
+    "totalPrice": "Totale Prijs",
+    "enrollButton": "Inschrijven voor deze Cursus",
     "syllabus": "Lesprogramma & Inhoud",
-    "highlights": "Wat u leert tijdens deze cursus",
+    "defaultSyllabus": [
+      "Interactieve lesmodules en klaslokale oefenopdrachten.",
+      "Echte examen-simulaties en strategieën voor maximale slagingskans.",
+      "Persoonlijke begeleiding afgestemd op anderstaligen.",
+      "Inclusief al het benodigde lesmateriaal en oefenvragen."
+    ],
     "reviewsTitle": "Beoordelingen & Ervaringen",
+    "reviewSingular": "beoordeling",
+    "reviewPlural": "beoordelingen",
+    "averageScore": "Gemiddelde score",
     "leaveReview": "Schrijf een beoordeling",
     "signInToReview": "Log in met Google om een review achter te laten.",
+    "signInButton": "Inloggen met Google",
     "submitReview": "Review Plaatsen",
+    "posting": "Plaatsen...",
     "rating": "Waardering",
     "commentPlaceholder": "Deel uw ervaringen met deze cursus...",
+    "loadingReviews": "Laden van beoordelingen...",
+    "reviewError": "Review plaatsen mislukt",
     "noReviews": "Nog geen beoordelingen voor deze cursus."
   },
   "EnrollmentModal": {
     "title": "Inschrijven voor cursus",
-    "firstName": "Voornaam",
-    "lastName": "Achternaam",
-    "email": "E-mailadres",
-    "phone": "Telefoonnummer (WhatsApp)",
     "notes": "Opmerkingen of vragen (optioneel)",
+    "notesPlaceholder": "Welke dagen schikken het beste? Vragen...",
     "submit": "Aanvraag Verzenden",
     "sending": "Verzenden...",
+    "successTitle": "Aanvraag Ontvangen!",
     "success": "Bedankt! Uw inschrijving is succesvol ontvangen. Wij nemen snel contact met u op.",
     "error": "Er is een fout opgetreden. Probeer het opnieuw."
   },
@@ -83,41 +130,58 @@
     "subtitle": "Uw brug naar taalvaardigheid, theoriecertificaten en vakgebonden kennis in Nederland.",
     "missionTitle": "Onze Missie",
     "missionText": "Drive&Talk is een toonaangevende academie die taal- en beroepsonderwijs combineert. Wij bieden intensieve onderdompeling in de Nederlandse taal, versterking van Engelse taalvaardigheid, voorbereiding op het CBR-theorie-examen en deskundige chemielessen voor studenten en professionals in Nederland.",
+    "highlights": [
+      { "title": "Nederlandse Taalonderdompeling:", "text": "Gericht op snelle spreekvaardigheid, Staatsexamen B1/B2 voorbereiding en maatschappelijke inburgering." },
+      { "title": "CBR Rijbewijs Theorie:", "text": "Meertalige autotheorie lessen met actuele oefenvragen en gevaarherkenning." },
+      { "title": "Engelse Taalvaardigheid:", "text": "Professionele trainingen in zakelijk Engels voor expats en professionals." },
+      { "title": "Chemie & Vakcursussen:", "text": "Praktische scheikunde lessen voor hbo/wo studenten en laboratoriummedewerkers." }
+    ],
+    "imageAlt": "Drive&Talk Klaslokaal",
     "contactCardsTitle": "Direct Contact & Openingstijden",
     "emailLabel": "Stuur ons een e-mail",
+    "emailDescription": "Officiële vragen & administratie",
     "phoneLabel": "WhatsApp & Telefoon",
+    "phoneDescription": "Direct advies & snelle antwoorden",
     "hoursLabel": "Openingstijden",
-    "whatsappText": "Start een WhatsApp gesprek"
+    "hoursDescription": "Lessen en klantenservice beschikbaar"
   },
   "SuccessStories": {
-    "title": "Succesverhalen",
-    "subtitle": "Inspirerende verhalen van cursisten die hun doelen hebben bereikt bij Drive&Talk.",
-    "courseCompleted": "Cursus afgerond",
-    "noStories": "Momenteel geen succesverhalen beschikbaar."
+    "eyebrow": "Ervaringen",
+    "title": "Succesverhalen van Onze Cursisten",
+    "subtitle": "Lees hoe onze studenten hun taalniveau hebben verhoogd en hun CBR-rijbewijstheorie hebben behaald.",
+    "badge": "Geslaagd",
+    "noStoriesTitle": "Geen succesverhalen",
+    "noStories": "Er zijn momenteel geen verhalen gepubliceerd."
   },
   "Contact": {
+    "eyebrow": "Contact",
     "title": "Neem Contact Met Ons Op",
     "subtitle": "Heeft u vragen over onze cursussen of wilt u advies op maat? Wij staan voor u klaar.",
     "formTitle": "Stuur een Bericht",
     "submit": "Bericht Verzenden",
     "sending": "Verzenden...",
+    "successTitle": "Bericht Verzonden!",
     "success": "Bedankt voor uw bericht! Wij nemen zo snel mogelijk contact met u op.",
-    "error": "Fout bij verzenden van uw bericht."
+    "error": "Fout bij verzenden van uw bericht.",
+    "infoTitle": "Contactgegevens",
+    "emailLabel": "E-mail",
+    "phoneLabel": "WhatsApp / Telefoon",
+    "hoursLabel": "Openingstijden",
+    "whatsappCta": "Start WhatsApp Gesprek"
   },
-  "Admin": {
-    "title": "Drive&Talk Beheerdersdashboard",
-    "metricsLeads": "Totale Aanvragen",
-    "metricsPending": "In behandeling",
-    "metricsCourses": "Actieve Cursussen",
-    "metricsStories": "Succesverhalen",
-    "tabInbox": "Inschrijvingen & Berichtensubs",
-    "tabCourses": "Cursusbeheer",
-    "tabStories": "Succesverhalen Beheer",
-    "tabSettings": "Instellingen",
-    "replyModalTitle": "Beantwoorden via E-mail (Mailjet)",
-    "sendReply": "E-mail Verzenden",
-    "statusPending": "In behandeling",
-    "statusReplied": "Beantwoord",
-    "statusArchived": "Gearchiveerd"
+  "Footer": {
+    "description": "Geïntegreerd taal- en praktijkonderwijs in Nederland. Gespecialiseerd in Nederlands, Engels, CBR Rijbewijs Theorie en Chemie.",
+    "navTitle": "Navigatie",
+    "programsTitle": "Opleidingen",
+    "programs": [
+      "Nederlands Intensief (A1 - B2)",
+      "CBR Rijbewijs Theorie Auto",
+      "Business & Academic English",
+      "Toegepaste Chemie & Lab Training"
+    ],
+    "contactTitle": "Contact & Tijden",
+    "copyright": "Drive&Talk Academy. Alle rechten voorbehouden.",
+    "privacy": "Privacy Policy",
+    "terms": "Algemene Voorwaarden"
   }
 }

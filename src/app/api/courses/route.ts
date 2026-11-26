@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const body = await req.json();
 
-    const { title, slug, description, category, price, imageUrl, cloudinaryPublicId, isActive } = body;
+    const { title, slug, description, category, price, imageUrl, cloudinaryPublicId, isActive, syllabus } = body;
 
     if (!title?.en || !title?.nl || !slug || !description?.en || !description?.nl || !category || price === undefined) {
       return NextResponse.json({ error: 'Missing required course fields' }, { status: 400 });
@@ -53,6 +53,10 @@ export async function POST(req: NextRequest) {
       description,
       category,
       price: Number(price),
+      syllabus: {
+        en: Array.isArray(syllabus?.en) ? syllabus.en : [],
+        nl: Array.isArray(syllabus?.nl) ? syllabus.nl : [],
+      },
       imageUrl: imageUrl || '',
       cloudinaryPublicId: cloudinaryPublicId || '',
       isActive: isActive !== undefined ? Boolean(isActive) : true,

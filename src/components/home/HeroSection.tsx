@@ -9,9 +9,18 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import SchoolIcon from '@mui/icons-material/School';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
+import { useSiteSettings } from '@/components/providers/SiteSettingsProvider';
+
+const STAT_STYLES = [
+  { icon: <SchoolIcon />, className: 'bg-brand-lightMint text-brand-green' },
+  { icon: <EmojiEventsIcon />, className: 'bg-amber-50 text-amber-600' },
+  { icon: <HeadsetMicIcon />, className: 'bg-blue-50 text-blue-600' },
+];
 
 export const HeroSection: React.FC = () => {
   const t = useTranslations('Hero');
+  const { branding } = useSiteSettings();
+  const stats = (t.raw('stats') as { value: string; label: string }[]) || [];
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-brand-mint via-white to-white py-16 lg:py-24 border-b border-brand-green/10">
@@ -73,37 +82,22 @@ export const HeroSection: React.FC = () => {
             </div>
 
             {/* Metrics Bar */}
-            <div className="grid grid-cols-3 gap-4 pt-8 border-t border-gray-200/80">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 bg-brand-lightMint rounded-xl text-brand-green">
-                  <SchoolIcon />
-                </div>
-                <div>
-                  <p className="text-sm font-extrabold text-brand-heading">1500+</p>
-                  <p className="text-xs text-gray-500 font-medium">Cursisten</p>
-                </div>
+            {stats.length > 0 && (
+              <div className="grid grid-cols-3 gap-4 pt-8 border-t border-gray-200/80">
+                {stats.map((stat, idx) => {
+                  const style = STAT_STYLES[idx % STAT_STYLES.length];
+                  return (
+                    <div key={idx} className="flex items-center gap-3">
+                      <div className={`p-2.5 rounded-xl ${style.className}`}>{style.icon}</div>
+                      <div>
+                        <p className="text-sm font-extrabold text-brand-heading">{stat.value}</p>
+                        <p className="text-xs text-gray-500 font-medium">{stat.label}</p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 bg-amber-50 rounded-xl text-amber-600">
-                  <EmojiEventsIcon />
-                </div>
-                <div>
-                  <p className="text-sm font-extrabold text-brand-heading">98%</p>
-                  <p className="text-xs text-gray-500 font-medium">Slagingspercentage</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 bg-blue-50 rounded-xl text-blue-600">
-                  <HeadsetMicIcon />
-                </div>
-                <div>
-                  <p className="text-sm font-extrabold text-brand-heading">7/7</p>
-                  <p className="text-xs text-gray-500 font-medium">Begeleiding</p>
-                </div>
-              </div>
-            </div>
+            )}
           </motion.div>
 
           {/* Right Visual Image Card */}
@@ -115,16 +109,16 @@ export const HeroSection: React.FC = () => {
           >
             <div className="relative mx-auto max-w-md lg:max-w-none rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white">
               <img
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80"
-                alt="Drive&Talk Academy Learning"
+                src={branding.heroImageUrl}
+                alt={t('imageAlt')}
                 className="w-full h-[440px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent flex items-end p-6">
                 <div className="text-white space-y-1">
                   <span className="px-3 py-1 bg-brand-green text-xs font-black uppercase rounded-full tracking-wider">
-                    Drive&amp;Talk Academy
+                    {t('imageBadge')}
                   </span>
-                  <h3 className="text-xl font-bold">Lessen in Nederlands, Engels &amp; Rijbewijs</h3>
+                  <h3 className="text-xl font-bold">{t('imageCaption')}</h3>
                 </div>
               </div>
             </div>

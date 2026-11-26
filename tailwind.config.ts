@@ -10,13 +10,14 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          green: "#00B050",
-          hover: "#009243",
-          dark: "#1A2E20",
-          heading: "#0F1F14",
-          body: "#1E293B",
-          mint: "#F8FAF7",
-          lightMint: "#EAF5EE",
+          // Values come from CSS variables so they can be changed in the dashboard (theme).
+          green: "rgb(var(--brand-green) / <alpha-value>)",
+          hover: "rgb(var(--brand-hover) / <alpha-value>)",
+          dark: "rgb(var(--brand-dark) / <alpha-value>)",
+          heading: "rgb(var(--brand-heading) / <alpha-value>)",
+          body: "rgb(var(--brand-body) / <alpha-value>)",
+          mint: "rgb(var(--brand-mint) / <alpha-value>)",
+          lightMint: "rgb(var(--brand-light-mint) / <alpha-value>)",
         },
       },
       fontFamily: {

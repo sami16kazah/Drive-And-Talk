@@ -7,6 +7,8 @@ import CourseManager from './CourseManager';
 import StoryManager from './StoryManager';
 import SettingsForm from './SettingsForm';
 import AdminCredentialsForm from './AdminCredentialsForm';
+import ContentEditor from './ContentEditor';
+import WebIcon from '@mui/icons-material/Web';
 import InboxIcon from '@mui/icons-material/Inbox';
 import SchoolIcon from '@mui/icons-material/School';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
@@ -24,13 +26,14 @@ interface AdminDashboardClientProps {
 
 export const AdminDashboardClient: React.FC<AdminDashboardClientProps> = ({ metrics }) => {
   const [activeTab, setActiveTab] = useState<
-    'inbox' | 'courses' | 'stories' | 'settings' | 'credentials'
+    'inbox' | 'courses' | 'stories' | 'content' | 'settings' | 'credentials'
   >('inbox');
 
   const tabs = [
     { id: 'inbox', label: 'Inschrijvingen & Inbox', icon: <InboxIcon fontSize="small" /> },
     { id: 'courses', label: 'Cursusbeheer', icon: <SchoolIcon fontSize="small" /> },
     { id: 'stories', label: 'Succesverhalen', icon: <AutoAwesomeIcon fontSize="small" /> },
+    { id: 'content', label: 'Website Inhoud', icon: <WebIcon fontSize="small" /> },
     { id: 'settings', label: 'E-mail Instellingen', icon: <SettingsIcon fontSize="small" /> },
     { id: 'credentials', label: 'Account & Wachtwoord', icon: <VpnKeyIcon fontSize="small" /> },
   ] as const;
@@ -71,6 +74,7 @@ export const AdminDashboardClient: React.FC<AdminDashboardClientProps> = ({ metr
         {activeTab === 'inbox' && <LeadsInbox />}
         {activeTab === 'courses' && <CourseManager />}
         {activeTab === 'stories' && <StoryManager />}
+        {activeTab === 'content' && <ContentEditor />}
         {activeTab === 'settings' && <SettingsForm />}
         {activeTab === 'credentials' && <AdminCredentialsForm />}
       </div>

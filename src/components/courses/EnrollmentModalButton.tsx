@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import EnrollmentModal from './EnrollmentModal';
 
 interface EnrollmentModalButtonProps {
@@ -14,8 +15,9 @@ export const EnrollmentModalButton: React.FC<EnrollmentModalButtonProps> = ({
   courseId,
   courseTitle,
   className,
-  buttonText = 'Inschrijven',
+  buttonText,
 }) => {
+  const t = useTranslations('Courses');
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,7 +29,7 @@ export const EnrollmentModalButton: React.FC<EnrollmentModalButtonProps> = ({
           'px-4 py-2 bg-brand-green hover:bg-brand-hover text-white text-xs font-bold rounded-xl shadow transition-all'
         }
       >
-        {buttonText}
+        {buttonText || t('enrollNow')}
       </button>
 
       <EnrollmentModal

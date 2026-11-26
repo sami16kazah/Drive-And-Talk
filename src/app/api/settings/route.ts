@@ -3,6 +3,8 @@ import { connectDB } from '@/lib/db';
 import { Setting } from '@/models/Setting';
 import { auth } from '@/auth';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     await connectDB();

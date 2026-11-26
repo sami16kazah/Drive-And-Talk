@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useSession, signIn } from 'next-auth/react';
 import RatingStars from '@/components/ui/RatingStars';
 import RateReviewIcon from '@mui/icons-material/RateReview';
@@ -22,6 +22,7 @@ interface ReviewsSectionProps {
 
 export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ courseId }) => {
   const t = useTranslations('CourseDetail');
+  const locale = useLocale();
   const { data: session, status } = useSession();
   const [reviews, setReviews] = useState<ReviewItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -69,14 +70,14 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ courseId }) => {
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || 'Failed to submit review');
+        throw new Error(data.error || t('reviewError'));
       }
 
       setComment('');
       setUserRating(5);
       fetchReviews();
     } catch (err: any) {
-      setErrorMsg(err.message || 'Error posting review');
+      setErrorMsg(err.message || t('reviewError'));
     } finally {
       setSubmitting(false);
     }
@@ -97,7 +98,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ courseId }) => {
             <span>{t('reviewsTitle')}</span>
           </h3>
           <p className="text-sm text-gray-600 mt-1">
-            {reviews.length} {reviews.length === 1 ? 'beoordeling' : 'beoordelingen'}
+            {reviews.length} {reviews.length === 1 ? t('reviewSingular') : t('reviewPlural')}
           </p>
         </div>
 
@@ -106,7 +107,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ courseId }) => {
             <span className="text-3xl font-extrabold text-brand-heading">{averageRating}</span>
             <div>
               <RatingStars rating={Number(averageRating)} size="sm" />
-              <span className="text-xs text-gray-500 font-medium">Gemiddelde score</span>
+              <span className="text-xs text-gray-500 font-medium">{t('averageScore')}</span>
             </div>
           </div>
         )}
@@ -150,7 +151,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ courseId }) => {
               disabled={submitting || !comment.trim()}
               className="px-6 py-2.5 bg-brand-green hover:bg-brand-hover text-white font-bold text-sm rounded-xl shadow transition-all disabled:opacity-50"
             >
-              {submitting ? 'Plaatsen...' : t('submitReview')}
+              {submitting ? t('posting') : t('submitReview')}
             </button>
           </form>
         ) : (
@@ -161,7 +162,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ courseId }) => {
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-dark text-white text-sm font-bold rounded-xl hover:bg-brand-heading transition-colors"
             >
               <LoginIcon fontSize="small" />
-              <span>Inloggen met Google</span>
+              <span>{t('signInButton')}</span>
             </button>
           </div>
         )}
@@ -170,7 +171,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ courseId }) => {
       {/* Reviews List */}
       <div className="space-y-4">
         {loading ? (
-          <div className="py-8 text-center text-gray-400">Laden van beoordelingen...</div>
+          <div className="py-8 text-center text-gray-400">{t('loadingReviews')}</div>
         ) : reviews.length === 0 ? (
           <div className="py-8 text-center text-gray-500 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
             {t('noReviews')}
@@ -197,7 +198,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ courseId }) => {
                   <div>
                     <h5 className="font-bold text-sm text-brand-heading">{rev.userName}</h5>
                     <span className="text-xs text-gray-400">
-                      {new Date(rev.createdAt).toLocaleDateString()}
+                      {new Date(rev.createdAt).toLocaleDateString(locale === 'en' ? 'en-GB' : 'nl-NL')}
                     </span>
                   </div>
                 </div>

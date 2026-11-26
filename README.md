@@ -53,3 +53,17 @@ Build for production:
 npm run build
 npm start
 ```
+
+## 🧩 Headless CMS (Website Content)
+
+All public website content is editable from the admin dashboard → **Website Inhoud** tab:
+
+- **Teksten Nederlands / Teksten Engels** – every text on the site (navigation, hero, home sections, forms, course pages, about, contact, footer, SEO title/description), including lists such as hero stats, about highlights, footer programs and the default syllabus.
+- **Algemeen** – contact details (email, phone, WhatsApp), logo / hero / about images (Cloudinary upload), theme colors, homepage section toggles and counts, privacy/terms/social links, course categories (labels, icons, colors, home cards) and Mailjet email template texts.
+- Courses, success stories, email settings and admin credentials keep their own dashboard tabs. Courses can have their own syllabus per language.
+
+How it works:
+
+- Defaults live in `src/messages/{nl,en}.json` and `src/content/globalDefaults.ts`.
+- Changes are stored in MongoDB (`SiteContent` collection, one document per scope: `nl`, `en`, `global`) and deep-merged over the defaults (`src/lib/content.ts`). New keys added to the defaults show up automatically.
+- API: `GET /api/content?scope=nl|en|global` (public), `PUT /api/content` and `DELETE /api/content?scope=…` (admin only). Saving invalidates the cache so changes are live immediately.
